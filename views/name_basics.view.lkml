@@ -44,6 +44,7 @@ view: name_basics {
   }
 
   dimension: nconst {
+    primary_key: yes
     type: string
     description: "Alphanumeric unique identifier of the name/person."
     sql: ${TABLE}.nconst ;;

@@ -61,6 +61,12 @@ view: title_principals {
     sql: ${TABLE}.tconst ;;
   }
 
+  dimension: compound_primary_key {
+    primary_key: yes
+    hidden: yes
+    sql: ${TABLE}.tconst || '-' ||  ${TABLE}.nconst ;;
+  }
+
   measure: count {
     type: count
     drill_fields: []
