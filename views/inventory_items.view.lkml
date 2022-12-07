@@ -2,16 +2,36 @@
 view: inventory_items {
   # The sql_table_name parameter indicates the underlying database table
   # to be used for all fields in this view.
-  sql_table_name: `bigquery-public-data.google_analytics_sample.ga_sessions_20170801`
+  sql_table_name: `bigquery-public-data.new_york_citibike.citibike_stations`
     ;;
-  drill_fields: [visitorId]
+  drill_fields: [station_id]
   # This primary key is the unique key for this table in the underlying database.
   # You need to define a primary key in a view in order to join to other views.
 
-  dimension: visitorId {
+  dimension: station_id {
     primary_key: yes
     type: number
-    sql: ${TABLE}.visitorId ;;
+    sql: ${TABLE}.station_id ;;
+  }
+
+  dimension: name {
+    type: string
+    sql: ${TABLE}.name ;;
+  }
+
+  dimension: capacity {
+    type: number
+    sql: ${TABLE}.capacity ;;
+  }
+
+  dimension: num_bikes_available {
+    type: number
+    sql: ${TABLE}.num_bikes_available ;;
+  }
+
+  dimension: num_docks_available {
+    type: number
+    sql: ${TABLE}.num_docks_available ;;
   }
 
 #   # Dates and timestamps can be represented in Looker using a dimension group of type: time.
