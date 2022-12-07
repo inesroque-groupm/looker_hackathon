@@ -1,37 +1,42 @@
 # The name of this view in Looker is "Inventory Items"
-view: inventory_items {
+view: name_basics {
   # The sql_table_name parameter indicates the underlying database table
   # to be used for all fields in this view.
-  sql_table_name: `bigquery-public-data.new_york_citibike.citibike_stations`
+  sql_table_name: `bigquery-public-data.imdb.name_basics`
     ;;
-  drill_fields: [station_id]
+  drill_fields: [nconst]
   # This primary key is the unique key for this table in the underlying database.
   # You need to define a primary key in a view in order to join to other views.
 
-  dimension: station_id {
+  dimension: nconst {
     primary_key: yes
-    type: number
-    sql: ${TABLE}.station_id ;;
-  }
-
-  dimension: name {
     type: string
-    sql: ${TABLE}.name ;;
+    sql: ${TABLE}.nconst ;;
   }
 
-  dimension: capacity {
-    type: number
-    sql: ${TABLE}.capacity ;;
+  dimension: primaryName {
+    type: string
+    sql: ${TABLE}.primaryName ;;
   }
 
-  dimension: num_bikes_available {
-    type: number
-    sql: ${TABLE}.num_bikes_available ;;
+  dimension: birthYear {
+    type: string
+    sql: ${TABLE}.birthYear ;;
   }
 
-  dimension: num_docks_available {
-    type: number
-    sql: ${TABLE}.num_docks_available ;;
+  dimension: deathYear {
+    type: string
+    sql: ${TABLE}.deathYear ;;
+  }
+
+  dimension: primaryProfession {
+    type: string
+    sql: ${TABLE}.primaryProfession ;;
+  }
+
+  dimension: knownForTitles {
+    type: string
+    sql: ${TABLE}.knownForTitles ;;
   }
 
 #   # Dates and timestamps can be represented in Looker using a dimension group of type: time.
