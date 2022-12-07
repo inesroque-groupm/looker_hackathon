@@ -1,127 +1,68 @@
-# The name of this view in Looker is "Inventory Items"
+# The name of this view in Looker is "Name Basics"
 view: name_basics {
   # The sql_table_name parameter indicates the underlying database table
   # to be used for all fields in this view.
   sql_table_name: `bigquery-public-data.imdb.name_basics`
     ;;
-  drill_fields: [nconst]
-  # This primary key is the unique key for this table in the underlying database.
-  # You need to define a primary key in a view in order to join to other views.
+  # No primary key is defined for this view. In order to join this view in an Explore,
+  # define primary_key: yes on a dimension that has no repeated values.
+
+  # Here's what a typical dimension looks like in LookML.
+  # A dimension is a groupable field that can be used to filter query results.
+  # This dimension will be called "Birth Year" in Explore.
+
+  dimension: birth_year {
+    type: number
+    description: "Birth year in YYYY format."
+    sql: ${TABLE}.birth_year ;;
+  }
+
+  # A measure is a field that uses a SQL aggregate function. Here are defined sum and average
+  # measures for this dimension, but you can also add measures of many different aggregates.
+  # Click on the type parameter to see all the options in the Quick Help panel on the right.
+
+  measure: total_birth_year {
+    type: sum
+    sql: ${birth_year} ;;
+  }
+
+  measure: average_birth_year {
+    type: average
+    sql: ${birth_year} ;;
+  }
+
+  dimension: death_year {
+    type: number
+    description: "Death year in YYYY format if applicable."
+    sql: ${TABLE}.death_year ;;
+  }
+
+  dimension: known_for_titles {
+    type: string
+    description: "Titles the person is known for."
+    sql: ${TABLE}.known_for_titles ;;
+  }
 
   dimension: nconst {
-    primary_key: yes
     type: string
+    description: "Alphanumeric unique identifier of the name/person."
     sql: ${TABLE}.nconst ;;
   }
 
-  dimension: primaryName {
+  dimension: primary_name {
     type: string
-    sql: ${TABLE}.primaryName ;;
+    description: "Name by which the person is most often credited."
+    sql: ${TABLE}.primary_name ;;
   }
 
-  dimension: birthYear {
+  dimension: primary_profession {
     type: string
-    sql: ${TABLE}.birthYear ;;
+    description: "The top-3 professions of the person."
+    sql: ${TABLE}.primary_profession ;;
   }
 
-  dimension: deathYear {
-    type: string
-    sql: ${TABLE}.deathYear ;;
+  measure: count {
+    type: count
+    drill_fields: [primary_name]
   }
-
-  dimension: primaryProfession {
-    type: string
-    sql: ${TABLE}.primaryProfession ;;
-  }
-
-  dimension: knownForTitles {
-    type: string
-    sql: ${TABLE}.knownForTitles ;;
-  }
-
-#   # Dates and timestamps can be represented in Looker using a dimension group of type: time.
-#   # Looker converts dates and timestamps to the specified timeframes within the dimension group.
-
-#   dimension_group: _partitiondate {
-#     type: time
-#     timeframes: [
-#       raw,
-#       date,
-#       week,
-#       month,
-#       quarter,
-#       year
-#     ]
-#     convert_tz: no
-#     datatype: date
-#     sql: ${TABLE}._PARTITIONDATE ;;
-#   }
-
-#   dimension_group: _partitiontime {
-#     type: time
-#     timeframes: [
-#       raw,
-#       date,
-#       week,
-#       month,
-#       quarter,
-#       year
-#     ]
-#     convert_tz: no
-#     datatype: date
-#     sql: ${TABLE}._PARTITIONTIME ;;
-#   }
-
-#   # Here's what a typical dimension looks like in LookML.
-#   # A dimension is a groupable field that can be used to filter query results.
-#   # This dimension will be called "Cost" in Explore.
-
-#   dimension: cost {
-#     type: number
-#     sql: ${TABLE}.cost ;;
-#   }
-
-#   # A measure is a field that uses a SQL aggregate function. Here are defined sum and average
-#   # measures for this dimension, but you can also add measures of many different aggregates.
-#   # Click on the type parameter to see all the options in the Quick Help panel on the right.
-
-#   measure: total_cost {
-#     type: sum
-#     sql: ${cost} ;;
-#   }
-
-#   measure: average_cost {
-#     type: average
-#     sql: ${cost} ;;
-#   }
-
-#   dimension_group: created {
-#     type: time
-#     timeframes: [
-#       raw,
-#       time,
-#       date,
-#       week,
-#       month,
-#       quarter,
-#       year
-#     ]
-#     sql: ${TABLE}.created_at ;;
-#   }
-
-#   dimension: product_id {
-#     type: number
-#     # hidden: yes
-#     sql: ${TABLE}.product_id ;;
-#   }
-
-#   dimension: sold_at {
-#     type: string
-#     sql: ${TABLE}.sold_at ;;
-#   }
-
-#   measure: count {
-#     type: count
-#     drill_fields: [id, products.item_name, products.id, order_items.count]
-#   }
- }
+}
