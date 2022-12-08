@@ -74,8 +74,8 @@
     conditional_formatting_include_nulls: false
     hidden_fields: []
     listen:
-      Title Type: title_basics.title_type
-    row: 6
+      What type of content do you want to see?: title_basics.title_type
+    row: 9
     col: 0
     width: 12
     height: 6
@@ -121,8 +121,8 @@
     y_axis_zoom: true
     defaults_version: 1
     listen:
-      Title Type: title_basics.title_type
-    row: 6
+      What type of content do you want to see?: title_basics.title_type
+    row: 9
     col: 13
     width: 11
     height: 6
@@ -205,8 +205,8 @@
     totals_color: "#808080"
     defaults_version: 1
     listen:
-      Title Type: title_basics.title_type
-    row: 20
+      What type of content do you want to see?: title_basics.title_type
+    row: 23
     col: 0
     width: 24
     height: 7
@@ -287,7 +287,7 @@
     hidden_points_if_no: []
     hidden_pivots: {}
     listen: {}
-    row: 27
+    row: 30
     col: 0
     width: 24
     height: 4
@@ -332,7 +332,7 @@
     series_labels: {}
     hidden_pivots: {}
     listen: {}
-    row: 15
+    row: 18
     col: 10
     width: 14
     height: 5
@@ -350,7 +350,7 @@
         align-items: center;
         font-size: 25px;
         font-weight: 600;">Analysis Over Time</h2>
-    row: 4
+    row: 7
     col: 0
     width: 24
     height: 2
@@ -368,7 +368,7 @@
         align-items: center;
         font-size: 25px;
         font-weight: 600;">Genres</h2>
-    row: 12
+    row: 15
     col: 0
     width: 24
     height: 3
@@ -404,7 +404,7 @@
     series_types: {}
     hidden_pivots: {}
     listen: {}
-    row: 0
+    row: 3
     col: 10
     width: 6
     height: 4
@@ -456,7 +456,7 @@
     hidden_pivots: {}
     hidden_fields: [title_basics.count, years, releases, releases2022]
     listen: {}
-    row: 0
+    row: 3
     col: 18
     width: 6
     height: 4
@@ -515,7 +515,7 @@
     defaults_version: 1
     series_types: {}
     listen: {}
-    row: 15
+    row: 18
     col: 0
     width: 10
     height: 5
@@ -603,15 +603,39 @@
     header_font_size: 12
     rows_font_size: 12
     listen: {}
-    row: 0
+    row: 3
     col: 0
     width: 8
     height: 4
+  - name: " (4)"
+    type: text
+    title_text: ''
+    subtitle_text: ''
+    body_text: |-
+      <h2 style = "color: #092656;
+        font-size:40px;
+        font-weight: 600;">Movies & TV Series Analysis</h2>
+    row: 0
+    col: 6
+    width: 13
+    height: 3
+  - name: " (5)"
+    type: text
+    title_text: ''
+    subtitle_text: ''
+    body_text: |2-
+        <div class="logo">
+              <img  src="https://upload.wikimedia.org/wikipedia/commons/6/69/IMDB_Logo_2016.svg">
+            </div>
+    row: 0
+    col: 2
+    width: 4
+    height: 3
   filters:
-  - name: Title Type
-    title: Title Type
+  - name: What type of content do you want to see?
+    title: What type of content do you want to see?
     type: field_filter
-    default_value: ''
+    default_value: movie,tvSeries
     allow_multiple_values: true
     required: false
     ui_config:
