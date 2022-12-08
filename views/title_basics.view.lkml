@@ -3,8 +3,8 @@ view: title_basics {
   # The sql_table_name parameter indicates the underlying database table
   # to be used for all fields in this view.
 
-  sql_table_name: (SELECT * FROM `bigquery-public-data.imdb.title_basics` WHERE title_type='movie' or title_type='tvEpisode'
-  or title_type='tvSeries') ;;
+  sql_table_name: (SELECT * FROM `bigquery-public-data.imdb.title_basics` WHERE (title_type='movie' or title_type='tvEpisode'
+  or title_type='tvSeries') and (start_year<2023 )) ;;
   # No primary key is defined for this view. In order to join this view in an Explore,
   # define primary_key: yes on a dimension that has no repeated values.
 
@@ -62,28 +62,11 @@ view: title_basics {
     sql: ${TABLE}.runtime_minutes ;;
   }
 
-  dimension: start_year_string {
-    type: string
-    description: "Represents the release year of a title. In the case of TV Series, it is the series start year."
-    sql: ${TABLE}.start_year ;;
-  }
-
-  dimension: start_year_2 {
-    type: string
-    description: "Represents the release year of a title. In the case of TV Series, it is the series start year."
-    sql: CONCAT(${start_year_string}, '-01-01') ;;
-  }
-
-  # dimension: start_year_2 {
-  #   type: date
-  #   description: "Represents the release year of a title. In the case of TV Series, it is the series start year."
-  #   sql: TO_DATE(${start_year_}, 'DD-MM-YYYY');;
-  # }
-
-  dimension_group: shipped {
+  dimension_group: start_year {
     type: time
-    timeframes: [date]
-    sql: CAST(${TABLE}.start_year_2 AS TIMESTAMP) ;;
+    timeframes: [year]
+    description: "Represents the release year of a title. In the case of TV Series, it is the series start year."
+    sql: CAST(CONCAT(CAST(${TABLE}.start_year AS STRING), '-01-01')  AS TIMESTAMP) ;;
   }
 
   dimension: decade {
