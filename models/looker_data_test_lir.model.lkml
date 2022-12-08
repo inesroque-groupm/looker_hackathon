@@ -54,6 +54,11 @@ explore: base {
     relationship: one_to_one
     sql_on: ${title_basics.tconst} = ${title_crew.tconst} ;;
   }
+
+  join: genre {
+    sql: LEFT JOIN UNNEST(SPLIT(${title_basics.genres},',')) as genre ;;
+    relationship: one_to_many
+  }
 }
 
 
@@ -71,3 +76,18 @@ explore: movies {
   extends: [base]
   sql_always_where: ${title_basics.title_type} = 'movie' ;;
 }
+
+
+# view: genre {
+#   dimension: genre {
+#     sql: ${TABLE} ;;
+#   }
+# }
+
+# explore: title_basics {
+#   join: genre {
+#     sql: LEFT JOIN UNNEST(SPLIT(${title_basics.genres},',')) as genre ;;
+#     relationship: one_to_many
+#   }
+
+# }
