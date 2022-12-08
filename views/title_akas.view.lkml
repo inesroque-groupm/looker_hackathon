@@ -2,7 +2,7 @@
 view: title_akas {
   # The sql_table_name parameter indicates the underlying database table
   # to be used for all fields in this view.
-  sql_table_name: (SELECT * FROM `bigquery-public-data.imdb.title_akas` WHERE is_original_title='Yes';;
+  sql_table_name: (SELECT * FROM `bigquery-public-data.imdb.title_akas` WHERE is_original_title= True);;
 
 
   # No primary key is defined for this view. In order to join this view in an Explore,

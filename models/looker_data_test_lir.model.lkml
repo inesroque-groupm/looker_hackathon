@@ -22,9 +22,8 @@ persist_with: looker_data_test_lir_default_datagroup
 # To see the Explore you’re building, navigate to the Explore menu and select an Explore under "Looker Data Test Lir"
 
 
-explore: title_basics {
-  label: "Movies"
-  sql_always_where: ${title_basics.title_type} = 'movie';;
+explore: base {
+  view_name: title_basics
 
   join: title_akas {
     relationship: one_to_many
@@ -55,4 +54,20 @@ explore: title_basics {
     relationship: one_to_one
     sql_on: ${title_basics.tconst} = ${title_crew.tconst} ;;
   }
+}
+
+
+explore: series {
+  extends: [base]
+  sql_always_where: ${title_basics.title_type} = 'tvSeries' or ${title_basics.title_type} = 'tvEpisode';;
+  join: title_episode {
+    type: full_outer
+    sql_on: ${title_basics.tconst} = ${title_episode.parent_tconst} ;;
+    relationship: one_to_many
+  }
+}
+
+explore: movies {
+  extends: [base]
+  sql_always_where: ${title_basics.title_type} = 'movie' ;;
 }
