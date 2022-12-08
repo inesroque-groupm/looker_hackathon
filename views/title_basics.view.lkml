@@ -69,9 +69,9 @@ view: title_basics {
   }
 
   dimension: decade {
-    type: string
+    type: number
     description: "Represents the release year of a title. In the case of TV Series, it is the series start year."
-    sql: SUBSTR(${TABLE}.start_year, -1, -1) ;;
+    sql: CAST(CONCAT(SUBSTR(CAST(${TABLE}.start_year AS STRING), 1, 3), "0") AS NUMERIC) ;;
   }
 
   dimension: tconst {

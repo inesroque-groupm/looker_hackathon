@@ -21,25 +21,53 @@ persist_with: looker_data_test_lir_default_datagroup
 
 # To see the Explore you’re building, navigate to the Explore menu and select an Explore under "Looker Data Test Lir"
 
-explore: title_basics {}
 
-explore: reviews {}
-explore: title_akas {}
+explore: base {
+  view_name: title_basics
 
-explore: title_crew {}
-explore: title_episode {}
-
-explore: title_ratings {}
-
-explore: title_principals {
-  join: name_basics {
-    foreign_key: nconst
-    relationship: many_to_one # Could be excluded since many_to_one is the default
-    type: left_outer          # Could be excluded since left_outer is the default
+  join: title_akas {
+    relationship: one_to_many
+    type: full_outer
+    sql_on: ${title_akas.title_id} = ${title_basics.tconst};;
   }
 
+  join: title_ratings {
+    relationship: one_to_one
+    type: full_outer
+    sql_on: ${title_ratings.tconst} = ${title_basics.tconst};;
+  }
+
+  join: title_principals {
+    relationship: one_to_many
+    type: full_outer
+    sql_on: ${title_principals.tconst} = ${title_basics.tconst};;
+  }
+
+  join: name_basics {
+    relationship: many_to_one
+    type: left_outer
+    sql_on: ${title_principals.nconst} = ${name_basics.nconst};;
+  }
+
+  join: title_crew {
+    type: full_outer
+    relationship: one_to_one
+    sql_on: ${title_basics.tconst} = ${title_crew.tconst} ;;
+  }
 }
 
-# To create more sophisticated Explores that involve multiple views, you can use the join parameter.
-# Typically, join parameters require that you define the join type, join relationship, and a sql_on clause.
-# Each joined view also needs to define a primary key.
+
+# explore: series {
+#   extends: [base]
+#   sql_always_where: ${title_basics.title_type} = 'tvSeries' or ${title_basics.title_type} = 'tvEpisode';;
+#   join: title_episode {
+#     type: full_outer
+#     sql_on: ${title_basics.tconst} = ${title_episode.parent_tconst} ;;
+#     relationship: one_to_many
+#   }
+# }
+
+# explore: movies {
+#   extends: [base]
+#   sql_always_where: ${title_basics.title_type} = 'movie' ;;
+# }
