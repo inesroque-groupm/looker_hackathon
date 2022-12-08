@@ -33,12 +33,12 @@ explore: title_ratings {}
 
 explore: title_principals {
   join: name_basics {
-    foreign_key: nconst
-    relationship: many_to_one # Could be excluded since many_to_one is the default
-    type: left_outer          # Could be excluded since left_outer is the default
+    relationship: many_to_one
+    type: left_outer
+    sql_on: ${title_principals.nconst} = ${name_basics.nconst};;
   }
-
 }
+
 
 # To create more sophisticated Explores that involve multiple views, you can use the join parameter.
 # Typically, join parameters require that you define the join type, join relationship, and a sql_on clause.
