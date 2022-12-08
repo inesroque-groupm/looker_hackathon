@@ -63,10 +63,22 @@ view: title_basics {
   }
 
   dimension: start_year {
-    type: number
+    type: string
     description: "Represents the release year of a title. In the case of TV Series, it is the series start year."
     sql: ${TABLE}.start_year ;;
   }
+
+  # dimension: start_year_ {
+  #   type: string
+  #   description: "Represents the release year of a title. In the case of TV Series, it is the series start year."
+  #   sql: CONCAT(${TABLE}.start_year, '-01-01') ;;
+  # }
+
+  # dimension: start_year_ {
+  #   type: date
+  #   description: "Represents the release year of a title. In the case of TV Series, it is the series start year."
+  #   sql: CAST(${start_year_} AS date) ;;
+  # }
 
   dimension: decade {
     type: number
