@@ -29,7 +29,7 @@ explore: title_basics {
   join: title_akas {
     relationship: one_to_many
     type: full_outer
-    sql_on: ${title_principals.tconst} = ${title_basics.tconst};;
+    sql_on: ${title_akas.title_id} = ${title_basics.tconst};;
   }
 
   join: title_ratings {
