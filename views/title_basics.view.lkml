@@ -27,11 +27,6 @@ view: title_basics {
     sql: ${end_year} ;;
   }
 
-  measure: average_end_year {
-    type: average
-    sql: ${end_year} ;;
-  }
-
   dimension: genres {
     type: string
     description: "Includes up to three genres associated with the title."
@@ -60,6 +55,11 @@ view: title_basics {
     type: number
     description: "Primary runtime of the title, in minutes."
     sql: ${TABLE}.runtime_minutes ;;
+  }
+
+  measure: average_runtime {
+    type: average
+    sql: ${runtime_minutes} ;;
   }
 
   dimension_group: start_year {

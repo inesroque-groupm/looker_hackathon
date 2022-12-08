@@ -73,8 +73,9 @@ explore: series {
 }
 
 explore: movies {
+  label: "Base_2"
   extends: [base]
-  sql_always_where: ${title_basics.title_type} = 'movie' ;;
+  #sql_always_where: ${title_basics.title_type} = 'movie' ;;
 }
 
 

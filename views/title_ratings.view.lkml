@@ -2,8 +2,7 @@
 view: title_ratings {
   # The sql_table_name parameter indicates the underlying database table
   # to be used for all fields in this view.
-  sql_table_name: `bigquery-public-data.imdb.title_ratings`
-    ;;
+  sql_table_name: (SELECT * FROM `bigquery-public-data.imdb.title_ratings` WHERE average_rating is not null or num_votes is not null) ;;
   # No primary key is defined for this view. In order to join this view in an Explore,
   # define primary_key: yes on a dimension that has no repeated values.
 
