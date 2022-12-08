@@ -76,6 +76,7 @@ view: title_basics {
   }
 
   dimension: tconst {
+    primary_key: yes
     type: string
     description: "Alphanumeric unique identifier of the title."
     sql: ${TABLE}.tconst ;;

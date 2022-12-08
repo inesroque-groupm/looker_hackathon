@@ -38,6 +38,7 @@ view: title_ratings {
   }
 
   dimension: tconst {
+    primary_key: yes
     type: string
     description: "Alphanumeric unique identifier for title."
     sql: ${TABLE}.tconst ;;
