@@ -62,6 +62,8 @@ view: title_basics {
     sql: ${runtime_minutes} ;;
   }
 
+
+
   dimension_group: start_year {
     type: time
     timeframes: [year]
@@ -94,4 +96,5 @@ view: title_basics {
     type: count
     drill_fields: []
   }
+
 }
