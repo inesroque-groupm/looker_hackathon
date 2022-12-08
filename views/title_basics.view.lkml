@@ -62,23 +62,29 @@ view: title_basics {
     sql: ${TABLE}.runtime_minutes ;;
   }
 
-  dimension: start_year {
+  dimension: start_year_string {
     type: string
     description: "Represents the release year of a title. In the case of TV Series, it is the series start year."
     sql: ${TABLE}.start_year ;;
   }
 
-  # dimension: start_year_ {
-  #   type: string
-  #   description: "Represents the release year of a title. In the case of TV Series, it is the series start year."
-  #   sql: CONCAT(${TABLE}.start_year, '-01-01') ;;
-  # }
+  dimension: start_year_2 {
+    type: string
+    description: "Represents the release year of a title. In the case of TV Series, it is the series start year."
+    sql: CONCAT(${start_year_string}, '-01-01') ;;
+  }
 
-  # dimension: start_year_ {
+  # dimension: start_year_2 {
   #   type: date
   #   description: "Represents the release year of a title. In the case of TV Series, it is the series start year."
-  #   sql: CAST(${start_year_} AS date) ;;
+  #   sql: TO_DATE(${start_year_}, 'DD-MM-YYYY');;
   # }
+
+  dimension_group: shipped {
+    type: time
+    timeframes: [date]
+    sql: CAST(${TABLE}.start_year_2 AS TIMESTAMP) ;;
+  }
 
   dimension: decade {
     type: number
