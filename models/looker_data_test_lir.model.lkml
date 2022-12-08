@@ -22,17 +22,21 @@ persist_with: looker_data_test_lir_default_datagroup
 # To see the Explore you’re building, navigate to the Explore menu and select an Explore under "Looker Data Test Lir"
 
 
-
-# explore: reviews {}
-explore: title_akas {}
-
-explore: title_crew {}
-explore: title_episode {}
-
-explore: title_ratings {}
-
-
 explore: title_basics {
+  label: "Movies"
+  sql_always_where: ${title_basics.title_type} = 'movie';;
+
+  join: title_akas {
+    relationship: one_to_many
+    type: full_outer
+    sql_on: ${title_principals.tconst} = ${title_basics.tconst};;
+  }
+
+  join: title_ratings {
+    relationship: one_to_one
+    type: full_outer
+    sql_on: ${title_ratings.tconst} = ${title_basics.tconst};;
+  }
 
   join: title_principals {
     relationship: one_to_many
@@ -47,14 +51,8 @@ explore: title_basics {
   }
 
   join: title_crew {
-    #Left Join only brings in items that have been sold as order_item
     type: full_outer
     relationship: one_to_one
     sql_on: ${title_basics.tconst} = ${title_crew.tconst} ;;
   }
 }
-
-
-# To create more sophisticated Explores that involve multiple views, you can use the join parameter.
-# Typically, join parameters require that you define the join type, join relationship, and a sql_on clause.
-# Each joined view also needs to define a primary key.
