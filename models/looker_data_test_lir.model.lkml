@@ -62,7 +62,7 @@ explore: base {
 }
 
 
-explore: series_mudado {
+explore: series_mudado2 {
   extends: [base]
   sql_always_where: ${title_basics.title_type} = 'tvSeries' or ${title_basics.title_type} = 'tvEpisode';;
   join: title_episode {
