@@ -57,17 +57,17 @@ explore: base {
 }
 
 
-# explore: series {
-#   extends: [base]
-#   sql_always_where: ${title_basics.title_type} = 'tvSeries' or ${title_basics.title_type} = 'tvEpisode';;
-#   join: title_episode {
-#     type: full_outer
-#     sql_on: ${title_basics.tconst} = ${title_episode.parent_tconst} ;;
-#     relationship: one_to_many
-#   }
-# }
+explore: series {
+  extends: [base]
+  sql_always_where: ${title_basics.title_type} = 'tvSeries' or ${title_basics.title_type} = 'tvEpisode';;
+  join: title_episode {
+    type: full_outer
+    sql_on: ${title_basics.tconst} = ${title_episode.parent_tconst} ;;
+    relationship: one_to_many
+  }
+}
 
-# explore: movies {
-#   extends: [base]
-#   sql_always_where: ${title_basics.title_type} = 'movie' ;;
-# }
+explore: movies {
+  extends: [base]
+  sql_always_where: ${title_basics.title_type} = 'movie' ;;
+}
