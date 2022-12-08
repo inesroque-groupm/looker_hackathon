@@ -61,8 +61,14 @@ explore: base {
   }
 }
 
+explore: movies {
+  label: "Movies_and_Series"
+  extends: [base]
+  sql_always_where: ${title_basics.title_type} != 'tvEpisode' ;;
+}
 
 explore: series{
+  label: "Series_Episodes"
   extends: [base]
   sql_always_where: ${title_basics.title_type} = 'tvSeries' or ${title_basics.title_type} = 'tvEpisode';;
   join: title_episode {
@@ -71,24 +77,3 @@ explore: series{
     relationship: one_to_many
   }
 }
-
-explore: movies {
-  label: "Base_2"
-  extends: [base]
-  #sql_always_where: ${title_basics.title_type} = 'movie' ;;
-}
-
-
-# view: genre {
-#   dimension: genre {
-#     sql: ${TABLE} ;;
-#   }
-# }
-
-# explore: title_basics {
-#   join: genre {
-#     sql: LEFT JOIN UNNEST(SPLIT(${title_basics.genres},',')) as genre ;;
-#     relationship: one_to_many
-#   }
-
-# }
