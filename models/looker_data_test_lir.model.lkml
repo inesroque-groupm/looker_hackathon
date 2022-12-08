@@ -21,7 +21,7 @@ persist_with: looker_data_test_lir_default_datagroup
 
 # To see the Explore you’re building, navigate to the Explore menu and select an Explore under "Looker Data Test Lir"
 
-explore: title_basics {}
+
 
 # explore: reviews {}
 explore: title_akas {}
@@ -31,11 +31,26 @@ explore: title_episode {}
 
 explore: title_ratings {}
 
-explore: title_principals {
+
+explore: title_basics {
+
+  join: title_principals {
+    relationship: one_to_many
+    type: full_outer
+    sql_on: ${title_principals.tconst} = ${title_basics.tconst};;
+  }
+
   join: name_basics {
     relationship: many_to_one
     type: left_outer
     sql_on: ${title_principals.nconst} = ${name_basics.nconst};;
+  }
+
+  join: title_crew {
+    #Left Join only brings in items that have been sold as order_item
+    type: full_outer
+    relationship: one_to_one
+    sql_on: ${title_basics.tconst} = ${title_crew.tconst} ;;
   }
 }
 
